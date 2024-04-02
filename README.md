@@ -159,7 +159,7 @@ CollapsibleSidebar(
 | `titleStyle` | TextStyle | --- | custom style for collapsible items text |
 | `toggleTitleStyle` | TextStyle | --- | custom style for toggle button title |
 | `avatarImg` | Image | --- | Image to be displayed |
-| `avatarFit` | BoxFit | BoxFit.cover | fit property for the avatar image |
+| `avatarFit` | BoxFit | BoxFit.fill | fit property for the avatar image |
 | `body` | Widget | --- | The main body of the app (the underlying main widget other than the sidebar) |
 | `height` | double | double.infinity | height of the Sidebar |
 | `minWidth` | double | 80 | Width of Sidebar when Collapsed |
