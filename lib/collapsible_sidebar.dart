@@ -25,10 +25,12 @@ class CollapsibleSidebar extends StatefulWidget {
     this.toggleTitleStyle,
     this.toggleTitle = 'Collapse',
     this.avatarImg,
+    this.avatarFit = BoxFit.fill,
     this.height = double.infinity,
     this.minWidth = 80,
     this.maxWidth = 270,
     this.borderRadius = 15,
+    this.avatarSize = 40,
     this.iconSize = 40,
     this.customContentPaddingLeft = -1,
     this.toggleButtonIcon = Icons.chevron_right,
@@ -49,6 +51,7 @@ class CollapsibleSidebar extends StatefulWidget {
     this.bottomPadding = 0,
     this.itemPadding = 10,
     this.customItemOffsetX = -1,
+    this.customTitleOffsetX = -1,
     this.fitItemsToBottom = false,
     this.onTitleTap,
     this.isCollapsed = true,
@@ -65,6 +68,7 @@ class CollapsibleSidebar extends StatefulWidget {
   }) : super(key: key);
 
   final avatarImg;
+
   final String title, toggleTitle;
   final MouseCursor onHoverPointer;
   final TextStyle? titleStyle, textStyle, toggleTitleStyle;
@@ -81,14 +85,17 @@ class CollapsibleSidebar extends StatefulWidget {
       minWidth,
       maxWidth,
       borderRadius,
+      avatarSize,
       iconSize,
       customItemOffsetX,
+      customTitleOffsetX,
       padding = 10,
       itemPadding,
       topPadding,
       bottomPadding,
       screenPadding,
       customContentPaddingLeft;
+  final BoxFit avatarFit;
   final IconData toggleButtonIcon;
   final Color backgroundColor,
       avatarBackgroundColor,
@@ -121,7 +128,8 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
       _delta1By4,
       _delta3by4,
       _maxOffsetX,
-      _maxOffsetY;
+      _maxOffsetY,
+      _maxTitleOffsetX;
   late int _selectedItemIndex;
 
   @override
@@ -137,6 +145,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
     _delta3by4 = _delta * 0.75;
     _maxOffsetX = widget.padding * 2 + widget.iconSize;
     _maxOffsetY = widget.itemPadding * 2 + widget.iconSize;
+    _maxTitleOffsetX = widget.padding * 2 + widget.avatarSize;
 
     _selectedItemIndex = 0;
     for (var i = 0; i < widget.items.length; i++) {
@@ -357,7 +366,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
       onHoverPointer: widget.onHoverPointer,
       padding: widget.itemPadding,
       offsetX:
-          widget.customItemOffsetX >= 0 ? widget.customItemOffsetX : _offsetX,
+          widget.customTitleOffsetX >= 0 ? widget.customTitleOffsetX : _titleOffsetX,
       scale: _fraction,
       leading: widget.titleBack
           ? Icon(
@@ -367,9 +376,10 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
             )
           : CollapsibleAvatar(
               backgroundColor: widget.avatarBackgroundColor,
-              avatarSize: widget.iconSize,
+              avatarSize: widget.avatarSize,
               name: widget.title,
               avatarImg: widget.avatarImg,
+              avatarFit: widget.avatarFit,
               textStyle: _textStyle(widget.backgroundColor, widget.titleStyle),
             ),
       title: widget.title,
@@ -479,6 +489,8 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
   double get _currAngle => -math.pi * _fraction;
 
   double get _offsetX => _maxOffsetX * _fraction;
+
+  double get _titleOffsetX => _maxTitleOffsetX * _fraction;
 
   TextStyle _textStyle(Color color, TextStyle? style) {
     return style == null
