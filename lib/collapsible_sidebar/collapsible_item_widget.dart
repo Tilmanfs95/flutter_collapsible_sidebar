@@ -60,10 +60,11 @@ class _CollapsibleItemWidgetState extends State<CollapsibleItemWidget> {
       cursor: widget.onHoverPointer,
       child: LayoutBuilder(builder: (context, boxConstraints) {
         return Container(
+          width: double.infinity,
           color: Colors.transparent,
           padding: EdgeInsets.all(widget.padding),
           child: widget.subItems == null
-              ? GestureDetector(
+              ? InkWell(
                   onTap: widget.onTap,
                   onLongPress: widget.onLongPress,
                   child: Row(
