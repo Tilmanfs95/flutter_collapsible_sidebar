@@ -50,6 +50,7 @@ class CollapsibleSidebar extends StatefulWidget {
     this.topPadding = 0,
     this.bottomPadding = 0,
     this.itemPadding = 10,
+    this.customIconOffsetX = 0,
     this.customItemOffsetX = -1,
     this.customTitleOffsetX = -1,
     this.fitItemsToBottom = false,
@@ -87,6 +88,7 @@ class CollapsibleSidebar extends StatefulWidget {
       borderRadius,
       avatarSize,
       iconSize,
+      customIconOffsetX,
       customItemOffsetX,
       customTitleOffsetX,
       padding = 10,
@@ -404,6 +406,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
         padding: widget.itemPadding,
         offsetX:
             widget.customItemOffsetX >= 0 ? widget.customItemOffsetX : _offsetX,
+        customIconOffsetX: widget.customIconOffsetX,
         scale: _fraction,
         leading: item.badgeCount != null && item.badgeCount! > 0
             ? Badge.count(
@@ -462,6 +465,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
       padding: widget.itemPadding,
       offsetX:
           widget.customItemOffsetX >= 0 ? widget.customItemOffsetX : _offsetX,
+      customIconOffsetX: widget.customIconOffsetX,
       scale: _fraction,
       leading: Transform.rotate(
         angle: _currAngle,

@@ -18,6 +18,7 @@ class CollapsibleItemWidget extends StatefulWidget {
     this.subItems,
     this.onLongPress,
     this.iconSize,
+    this.customIconOffsetX,
     this.iconColor,
     this.parentComponent,
   });
@@ -32,7 +33,7 @@ class CollapsibleItemWidget extends StatefulWidget {
   final double? minWidth;
   final VoidCallback? onTap;
   final List<CollapsibleItem>? subItems;
-  final double? iconSize;
+  final double? iconSize, customIconOffsetX;
   final Color? iconColor;
   final bool? parentComponent;
   final VoidCallback? onLongPress;
@@ -69,6 +70,7 @@ class _CollapsibleItemWidgetState extends State<CollapsibleItemWidget> {
                   onLongPress: widget.onLongPress,
                   child: Row(
                     children: [
+                      SizedBox(width: widget.customIconOffsetX ?? 0),
                       widget.leading,
                       _title,
                     ],
@@ -78,6 +80,7 @@ class _CollapsibleItemWidgetState extends State<CollapsibleItemWidget> {
                   onHoverPointer: widget.onHoverPointer,
                   textStyle: widget.textStyle,
                   offsetX: widget.offsetX,
+                  customIconOffsetX: widget.customIconOffsetX,
                   isSelected: widget.isSelected,
                   scale: widget.scale,
                   padding: widget.padding,
