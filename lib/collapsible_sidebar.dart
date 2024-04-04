@@ -16,6 +16,7 @@ class CollapsibleSidebar extends StatefulWidget {
     Key? key,
     required this.items,
     required this.body,
+    this.flexibleBodyWidth = false,
     this.title = 'Lorem Ipsum',
     this.titleStyle,
     this.titleBack = false,
@@ -75,7 +76,8 @@ class CollapsibleSidebar extends StatefulWidget {
   final TextStyle? titleStyle, textStyle, toggleTitleStyle;
   final IconData titleBackIcon;
   final Widget body;
-  final bool showToggleButton,
+  final bool flexibleBodyWidth,
+      showToggleButton,
       fitItemsToBottom,
       isCollapsed,
       titleBack,
@@ -289,7 +291,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
                       endIndent: 5,
                       thickness: 1,
                     )
-                  : SizedBox(
+                  : const SizedBox(
                       height: 5,
                     ),
               widget.showToggleButton
@@ -304,71 +306,95 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
     );
 
     return _isCollapsed
-        ? Stack(
-            alignment: Directionality.of(context) == TextDirection.ltr
-                ? Alignment.topLeft
-                : Alignment.topRight,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  left: widget.minWidth *
-                          (widget.customContentPaddingLeft < 0 ? 1.1 : 1) +
-                      (widget.customContentPaddingLeft >= 0
-                          ? widget.customContentPaddingLeft
-                          : 0),
-                ),
-                child: widget.body,
-              ),
-              sidebar,
-            ],
-          )
-        : Stack(
-            alignment: Directionality.of(context) == TextDirection.ltr
-                ? Alignment.topLeft
-                : Alignment.topRight,
-            children: [
-              widget.collapseOnBodyTap
-                  ? GestureDetector(
-                      onTap: () {
-                        _isCollapsed = true;
-                        _animateTo(widget.minWidth);
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          left: widget.minWidth *
-                                  (widget.customContentPaddingLeft < 0
-                                      ? 1.1
-                                      : 1) +
-                              (widget.customContentPaddingLeft >= 0
-                                  ? widget.customContentPaddingLeft
-                                  : 0),
-                        ),
-                        child: widget.body,
-                      ),
-                    )
-                  : Padding(
-                      padding: EdgeInsets.only(
-                        left: widget.minWidth *
-                                (widget.customContentPaddingLeft < 0
-                                    ? 1.1
-                                    : 1) +
-                            (widget.customContentPaddingLeft >= 0
-                                ? widget.customContentPaddingLeft
-                                : 0),
-                      ),
-                      child: widget.body,
+        ? widget.flexibleBodyWidth
+            ? Row(
+                children: [
+                  sidebar,
+                  Expanded(child: widget.body),
+                ],
+              )
+            : Stack(
+                alignment: Directionality.of(context) == TextDirection.ltr
+                    ? Alignment.topLeft
+                    : Alignment.topRight,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: widget.minWidth *
+                              (widget.customContentPaddingLeft < 0 ? 1.1 : 1) +
+                          (widget.customContentPaddingLeft >= 0
+                              ? widget.customContentPaddingLeft
+                              : 0),
                     ),
-              sidebar,
-            ],
-          );
+                    child: widget.body,
+                  ),
+                  sidebar,
+                ],
+              )
+        : widget.flexibleBodyWidth
+            ? Row(
+                children: [
+                  sidebar,
+                  widget.collapseOnBodyTap
+                      ? GestureDetector(
+                          onTap: () {
+                            _isCollapsed = true;
+                            _animateTo(widget.minWidth);
+                          },
+                          child: Expanded(child: widget.body),
+                        )
+                      : Expanded(child: widget.body),
+                  // sidebar,
+                ],
+              )
+            : Stack(
+                alignment: Directionality.of(context) == TextDirection.ltr
+                    ? Alignment.topLeft
+                    : Alignment.topRight,
+                children: [
+                  widget.collapseOnBodyTap
+                      ? GestureDetector(
+                          onTap: () {
+                            _isCollapsed = true;
+                            _animateTo(widget.minWidth);
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: widget.minWidth *
+                                      (widget.customContentPaddingLeft < 0
+                                          ? 1.1
+                                          : 1) +
+                                  (widget.customContentPaddingLeft >= 0
+                                      ? widget.customContentPaddingLeft
+                                      : 0),
+                            ),
+                            child: widget.body,
+                          ),
+                        )
+                      : Padding(
+                          padding: EdgeInsets.only(
+                            left: widget.minWidth *
+                                    (widget.customContentPaddingLeft < 0
+                                        ? 1.1
+                                        : 1) +
+                                (widget.customContentPaddingLeft >= 0
+                                    ? widget.customContentPaddingLeft
+                                    : 0),
+                          ),
+                          child: widget.body,
+                        ),
+                  sidebar,
+                ],
+              );
   }
 
   Widget get _avatar {
     return CollapsibleItemWidget(
       onHoverPointer: widget.onHoverPointer,
       padding: widget.itemPadding,
-      offsetX:
-          widget.customTitleOffsetX >= 0 ? widget.customTitleOffsetX : _titleOffsetX,
+      offsetX: widget.customTitleOffsetX >= 0
+          ? widget.customTitleOffsetX
+          : _titleOffsetX,
       scale: _fraction,
       leading: widget.titleBack
           ? Icon(
