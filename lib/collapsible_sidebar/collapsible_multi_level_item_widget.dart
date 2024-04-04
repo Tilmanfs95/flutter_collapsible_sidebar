@@ -15,6 +15,7 @@ class CollapsibleMultiLevelItemWidget extends StatefulWidget {
     required this.disable,
     this.iconColor,
     this.iconSize,
+    this.customIconOffsetX,
     this.onTapMainLevel,
     this.onHold,
     this.isCollapsed,
@@ -33,7 +34,7 @@ class CollapsibleMultiLevelItemWidget extends StatefulWidget {
   final List<CollapsibleItem> subItems;
   final bool extendable;
   final bool? disable;
-  final double? iconSize;
+  final double? iconSize, customIconOffsetX;
   final Color? iconColor;
   final VoidCallback? onTapMainLevel, onHold;
   final bool? parentComponent;
@@ -85,6 +86,7 @@ class _CollapsibleMultiLevelItemWidgetState
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
+              SizedBox(width: widget.customIconOffsetX ?? 0),
               Expanded(
                 child: widget.mainLevel,
               ),
@@ -107,6 +109,7 @@ class _CollapsibleMultiLevelItemWidgetState
                           onHoverPointer: widget.onHoverPointer,
                           padding: widget.padding,
                           offsetX: widget.offsetX,
+                          customIconOffsetX: widget.customIconOffsetX,
                           scale: widget.scale,
                           leading: subItem.iconImage != null
                               ? CircleAvatar(

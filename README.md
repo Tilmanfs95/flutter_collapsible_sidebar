@@ -185,6 +185,7 @@ CollapsibleSidebar(
 | `topPadding` | double | 0 | space between image avatar and icons |
 | `bottomPadding` | double | 0 | space between icons and toggle button |
 | `itemPadding` | double | 10 | space between collapsible items |
+| `customIconOffsetX` | double | 0 | X axis offset for the icons (also influences the item text) |
 | `customItemOffsetX ` | double | -1 | X axis offset for collapsible items (keep value less than 0 for default offset) |
 | `customTitleOffsetX` | double | -1 | X axis offset for title (keep value less than 0 for default offset) |
 | `fitItemsToBottom` | bool | true | fit all icons to the end of the space between image avatar and toggle button|
