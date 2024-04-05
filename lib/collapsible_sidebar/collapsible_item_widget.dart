@@ -47,24 +47,24 @@ class _CollapsibleItemWidgetState extends State<CollapsibleItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (event) {
-        setState(() {
-          _underline = true && widget.onTap != null;
-        });
-      },
-      onExit: (event) {
-        setState(() {
-          _underline = false;
-        });
-      },
-      cursor: widget.onHoverPointer,
-      child: LayoutBuilder(builder: (context, boxConstraints) {
-        return Container(
-          width: double.infinity,
-          color: Colors.transparent,
-          padding: EdgeInsets.all(widget.padding),
-          child: widget.subItems == null
+    return Container(
+      width: double.infinity,
+      color: Colors.transparent,
+      padding: EdgeInsets.all(widget.padding),
+      child: MouseRegion(
+        onEnter: (event) {
+          setState(() {
+            _underline = true && widget.onTap != null;
+          });
+        },
+        onExit: (event) {
+          setState(() {
+            _underline = false;
+          });
+        },
+        cursor: widget.onHoverPointer,
+        child: LayoutBuilder(builder: (context, boxConstraints) {
+          return widget.subItems == null
               ? InkWell(
                   onTap: widget.onTap,
                   onLongPress: widget.onLongPress,
@@ -101,9 +101,9 @@ class _CollapsibleItemWidgetState extends State<CollapsibleItemWidget> {
                   disable: widget.isCollapsed,
                   iconColor: widget.iconColor,
                   iconSize: widget.iconSize,
-                ),
-        );
-      }),
+                );
+        }),
+      ),
     );
   }
 
@@ -123,8 +123,10 @@ class _CollapsibleItemWidgetState extends State<CollapsibleItemWidget> {
             child: Text(
               widget.title,
               style: _underline
-                  ? widget.textStyle
-                      .merge(TextStyle(decoration: TextDecoration.underline))
+                  ? widget.textStyle.copyWith(
+                    decoration: TextDecoration.underline,
+                    decorationColor: widget.textStyle.color,
+                  )
                   : widget.textStyle,
               softWrap: false,
               overflow: TextOverflow.fade,
