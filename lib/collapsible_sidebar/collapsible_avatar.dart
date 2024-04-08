@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CollapsibleAvatar extends StatelessWidget {
   const CollapsibleAvatar({
     required this.avatarSize,
+    required this.avatarFit,
     required this.backgroundColor,
     required this.name,
     this.avatarImg,
@@ -13,6 +14,7 @@ class CollapsibleAvatar extends StatelessWidget {
   final Color backgroundColor;
   final String name;
   final avatarImg;
+  final avatarFit;
   final TextStyle textStyle;
 
   @override
@@ -33,7 +35,7 @@ class CollapsibleAvatar extends StatelessWidget {
         borderRadius: BorderRadius.circular(avatarSize),
         child: Image(
           image: avatarImg,
-          fit: BoxFit.fill,
+          fit: avatarFit,
           height: avatarSize,
           width: avatarSize,
         ));

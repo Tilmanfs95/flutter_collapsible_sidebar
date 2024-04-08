@@ -159,12 +159,14 @@ CollapsibleSidebar(
 | `titleStyle` | TextStyle | --- | custom style for collapsible items text |
 | `toggleTitleStyle` | TextStyle | --- | custom style for toggle button title |
 | `avatarImg` | Image | --- | Image to be displayed |
+| `avatarFit` | BoxFit | BoxFit.fill | fit property for the avatar image |
 | `body` | Widget | --- | The main body of the app (the underlying main widget other than the sidebar) |
 | `height` | double | double.infinity | height of the Sidebar |
 | `minWidth` | double | 80 | Width of Sidebar when Collapsed |
 | `maxWidth` | double | 270 |  Width of Sidebar when Expanded |
 | `borderRadius` | double |15 | Radius of the borders |
 | `iconSize` | double | 40 | Size of the icons |
+| `avatarSize` | double | 40 | Size of the avatar image |
 | `customContentPaddingLeft` | double | -1 | Padding to the left of CollapsibleItems (keep value less than 0 for default padding) |
 | `toggleTitle` | String | 'Collapse' | title text of Toggle Button |
 | `toggleButtonIcon` | Icons | Icons.chevron_right | Icon of the Toggle button |
@@ -183,7 +185,9 @@ CollapsibleSidebar(
 | `topPadding` | double | 0 | space between image avatar and icons |
 | `bottomPadding` | double | 0 | space between icons and toggle button |
 | `itemPadding` | double | 10 | space between collapsible items |
+| `customIconOffsetX` | double | 0 | X axis offset for the icons (also influences the item text) |
 | `customItemOffsetX ` | double | -1 | X axis offset for collapsible items (keep value less than 0 for default offset) |
+| `customTitleOffsetX` | double | -1 | X axis offset for title (keep value less than 0 for default offset) |
 | `fitItemsToBottom` | bool | true | fit all icons to the end of the space between image avatar and toggle button|
 | `showToggleButton` | bool | true | flag to enable/disable showing the toggle button |
 | `sidebarBoxShadow` | `List<BoxShadow>` | [BoxShadow(color: Colors.blue, blurRadius: 10, spreadRadius: 0.01, offset: Offset(3, 3),),] | Just like the "BoxDecoration" parameter of a "Container" |
