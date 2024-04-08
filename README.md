@@ -155,12 +155,14 @@ CollapsibleSidebar(
 | `titleBackIcon` | Icons | Icons.arrow_back | the back icon is 'arrow_back' by default (customizable) |
 | `onTitleTap` | Function | --- | custom callback function called when title avatar or back icon is pressed |
 | `onHoverPointer` | SystemMouseCursors | SystemMouseCursors.click | the default hover mouse pointer is set to 'click' type by default (customizable) |
+| `onHoverBoxColor` | Color | Colors.transparent | the default hover box color is set to 'transparent' by default (customizable) |
 | `textStyle` | TextStyle | --- | custom style for sidebar title |
 | `titleStyle` | TextStyle | --- | custom style for collapsible items text |
 | `toggleTitleStyle` | TextStyle | --- | custom style for toggle button title |
 | `avatarImg` | Image | --- | Image to be displayed |
 | `avatarFit` | BoxFit | BoxFit.fill | fit property for the avatar image |
 | `body` | Widget | --- | The main body of the app (the underlying main widget other than the sidebar) |
+| `flexibleBodyWidth` | bool | false | if enabled, the body will only take the remaining width of the screen left by the sidebar |
 | `height` | double | double.infinity | height of the Sidebar |
 | `minWidth` | double | 80 | Width of Sidebar when Collapsed |
 | `maxWidth` | double | 270 |  Width of Sidebar when Expanded |
