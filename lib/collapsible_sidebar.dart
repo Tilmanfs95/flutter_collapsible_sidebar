@@ -22,6 +22,7 @@ class CollapsibleSidebar extends StatefulWidget {
     this.titleBack = false,
     this.titleBackIcon = Icons.arrow_back,
     this.onHoverPointer = SystemMouseCursors.click,
+    this.onHoverBoxColor = Colors.transparent,
     this.textStyle,
     this.toggleTitleStyle,
     this.toggleTitle = 'Collapse',
@@ -101,7 +102,8 @@ class CollapsibleSidebar extends StatefulWidget {
       customContentPaddingLeft;
   final BoxFit avatarFit;
   final IconData toggleButtonIcon;
-  final Color backgroundColor,
+  final Color onHoverBoxColor,
+      backgroundColor,
       avatarBackgroundColor,
       selectedIconBox,
       selectedIconColor,
@@ -267,6 +269,13 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
                   reverse: widget.fitItemsToBottom,
                   child: Stack(
                     children: [
+                      // CollapsibleItemSelection(
+                      //   height: _maxOffsetY,
+                      //   offsetY: _maxOffsetY * _selectedItemIndex,
+                      //   color: widget.selectedIconBox,
+                      //   duration: widget.duration,
+                      //   curve: widget.curve,
+                      // ),
                       CollapsibleItemSelection(
                         height: _maxOffsetY,
                         offsetY: _maxOffsetY * _selectedItemIndex,
@@ -391,6 +400,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
   Widget get _avatar {
     return CollapsibleItemWidget(
       onHoverPointer: widget.onHoverPointer,
+      onHoverBoxColor: widget.onHoverBoxColor,
       padding: widget.itemPadding,
       offsetX: widget.customTitleOffsetX >= 0
           ? widget.customTitleOffsetX
@@ -429,6 +439,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
       }
       return CollapsibleItemWidget(
         onHoverPointer: widget.onHoverPointer,
+        onHoverBoxColor: widget.onHoverBoxColor,
         padding: widget.itemPadding,
         offsetX:
             widget.customItemOffsetX >= 0 ? widget.customItemOffsetX : _offsetX,
@@ -488,6 +499,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
   Widget get _toggleButton {
     return CollapsibleItemWidget(
       onHoverPointer: widget.onHoverPointer,
+      onHoverBoxColor: widget.onHoverBoxColor,
       padding: widget.itemPadding,
       offsetX:
           widget.customItemOffsetX >= 0 ? widget.customItemOffsetX : _offsetX,
