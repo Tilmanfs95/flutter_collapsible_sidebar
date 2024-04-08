@@ -11,6 +11,7 @@ class CollapsibleItemWidget extends StatefulWidget {
     required this.padding,
     required this.offsetX,
     required this.scale,
+    required this.onHoverBoxColor,
     this.isCollapsed,
     this.isSelected,
     this.minWidth,
@@ -28,6 +29,7 @@ class CollapsibleItemWidget extends StatefulWidget {
   final String title;
   final TextStyle textStyle;
   final double offsetX, scale, padding;
+  final Color? onHoverBoxColor;
   final bool? isCollapsed;
   final bool? isSelected;
   final double? minWidth;
@@ -49,8 +51,11 @@ class _CollapsibleItemWidgetState extends State<CollapsibleItemWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: Colors.transparent,
       padding: EdgeInsets.all(widget.padding),
+      decoration: BoxDecoration(
+        color:_underline ? widget.onHoverBoxColor : Colors.transparent,
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: MouseRegion(
         onEnter: (event) {
           setState(() {
@@ -78,6 +83,7 @@ class _CollapsibleItemWidgetState extends State<CollapsibleItemWidget> {
                 )
               : CollapsibleMultiLevelItemWidget(
                   onHoverPointer: widget.onHoverPointer,
+                  onHoverBoxColor: widget.onHoverBoxColor,
                   textStyle: widget.textStyle,
                   offsetX: widget.offsetX,
                   customIconOffsetX: widget.customIconOffsetX,

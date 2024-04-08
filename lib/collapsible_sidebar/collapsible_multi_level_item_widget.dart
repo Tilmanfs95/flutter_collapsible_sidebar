@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class CollapsibleMultiLevelItemWidget extends StatefulWidget {
   const CollapsibleMultiLevelItemWidget({
     required this.onHoverPointer,
+    required this.onHoverBoxColor,
     required this.textStyle,
     required this.padding,
     required this.offsetX,
@@ -28,6 +29,7 @@ class CollapsibleMultiLevelItemWidget extends StatefulWidget {
   final MouseCursor onHoverPointer;
   final TextStyle textStyle;
   final double offsetX, scale, padding;
+  final Color? onHoverBoxColor;
   final bool? isCollapsed;
   final bool? isSelected;
   final double? minWidth;
@@ -107,6 +109,7 @@ class _CollapsibleMultiLevelItemWidgetState
                 children: widget.subItems
                     .map((subItem) => CollapsibleItemWidget(
                           onHoverPointer: widget.onHoverPointer,
+                          onHoverBoxColor: widget.onHoverBoxColor,
                           padding: widget.padding,
                           offsetX: widget.offsetX,
                           customIconOffsetX: widget.customIconOffsetX,
