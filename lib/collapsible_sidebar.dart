@@ -269,13 +269,6 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
                   reverse: widget.fitItemsToBottom,
                   child: Stack(
                     children: [
-                      // CollapsibleItemSelection(
-                      //   height: _maxOffsetY,
-                      //   offsetY: _maxOffsetY * _selectedItemIndex,
-                      //   color: widget.selectedIconBox,
-                      //   duration: widget.duration,
-                      //   curve: widget.curve,
-                      // ),
                       CollapsibleItemSelection(
                         height: _maxOffsetY,
                         offsetY: _maxOffsetY * _selectedItemIndex,
