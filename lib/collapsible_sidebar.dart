@@ -269,13 +269,15 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
                   reverse: widget.fitItemsToBottom,
                   child: Stack(
                     children: [
-                      _selectedItemIndex < widget.items.length ? CollapsibleItemSelection(
-                        height: _maxOffsetY,
-                        offsetY: _maxOffsetY * _selectedItemIndex,
-                        color: widget.selectedIconBox,
-                        duration: widget.duration,
-                        curve: widget.curve,
-                      ):Container(),
+                      _selectedItemIndex < widget.items.length
+                          ? CollapsibleItemSelection(
+                              height: _maxOffsetY,
+                              offsetY: _maxOffsetY * _selectedItemIndex,
+                              color: widget.selectedIconBox,
+                              duration: widget.duration,
+                              curve: widget.curve,
+                            )
+                          : Container(),
                       Column(
                         children: _items,
                       ),
@@ -309,10 +311,17 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
 
     return _isCollapsed
         ? widget.flexibleBodyWidth
-            ? Row(
+            ? Stack(
                 children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: _currWidth,
+                      ),
+                      Expanded(child: widget.body),
+                    ],
+                  ),
                   sidebar,
-                  Expanded(child: widget.body),
                 ],
               )
             : Stack(
@@ -334,19 +343,26 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
                 ],
               )
         : widget.flexibleBodyWidth
-            ? Row(
+            ? Stack(
                 children: [
-                  sidebar,
-                  widget.collapseOnBodyTap
-                      ? GestureDetector(
-                          onTap: () {
-                            _isCollapsed = true;
-                            _animateTo(widget.minWidth);
-                          },
-                          child: Expanded(child: widget.body),
-                        )
-                      : Expanded(child: widget.body),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: _currWidth,
+                      ),
+                      widget.collapseOnBodyTap
+                          ? GestureDetector(
+                              onTap: () {
+                                _isCollapsed = true;
+                                _animateTo(widget.minWidth);
+                              },
+                              child: Expanded(child: widget.body),
+                            )
+                          : Expanded(child: widget.body),
+                    ],
+                  ),
                   // sidebar,
+                  sidebar,
                 ],
               )
             : Stack(
