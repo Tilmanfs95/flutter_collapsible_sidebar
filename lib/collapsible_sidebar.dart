@@ -269,13 +269,13 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
                   reverse: widget.fitItemsToBottom,
                   child: Stack(
                     children: [
-                      CollapsibleItemSelection(
+                      _selectedItemIndex < widget.items.length ? CollapsibleItemSelection(
                         height: _maxOffsetY,
                         offsetY: _maxOffsetY * _selectedItemIndex,
                         color: widget.selectedIconBox,
                         duration: widget.duration,
                         curve: widget.curve,
-                      ),
+                      ):Container(),
                       Column(
                         children: _items,
                       ),
@@ -476,7 +476,9 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
           if (item.isSelected) return;
           item.onPressed();
           item.isSelected = true;
-          widget.items[_selectedItemIndex].isSelected = false;
+          if (_selectedItemIndex < widget.items.length) {
+            widget.items[_selectedItemIndex].isSelected = false;
+          }
           setState(() => _selectedItemIndex = index);
         },
         onLongPress: () {
