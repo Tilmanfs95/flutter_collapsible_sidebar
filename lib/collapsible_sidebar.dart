@@ -153,12 +153,6 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
     _maxOffsetY = widget.itemPadding * 2 + widget.iconSize;
     _maxTitleOffsetX = widget.padding * 2 + widget.avatarSize;
 
-    _selectedItemIndex = 0;
-    for (var i = 0; i < widget.items.length; i++) {
-      if (widget.items[i].isSelected) break;
-      _selectedItemIndex += 1;
-    }
-
     _controller = AnimationController(
       vsync: this,
       duration: widget.duration,
@@ -244,6 +238,11 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
 
   @override
   Widget build(BuildContext context) {
+    _selectedItemIndex = 0;
+    for (var i = 0; i < widget.items.length; i++) {
+      if (widget.items[i].isSelected) break;
+      _selectedItemIndex += 1;
+    }
     Widget sidebar = Padding(
       padding: EdgeInsets.all(widget.screenPadding),
       child: GestureDetector(
