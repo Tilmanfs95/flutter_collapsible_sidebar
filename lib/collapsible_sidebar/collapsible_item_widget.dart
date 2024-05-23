@@ -47,66 +47,76 @@ class CollapsibleItemWidget extends StatefulWidget {
 class _CollapsibleItemWidgetState extends State<CollapsibleItemWidget> {
   bool _underline = false;
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _titleContainer({required child}) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(widget.padding),
       decoration: BoxDecoration(
-        color:_underline ? widget.onHoverBoxColor : Colors.transparent,
+        color: _underline ? widget.onHoverBoxColor : Colors.transparent,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: MouseRegion(
-        onEnter: (event) {
-          setState(() {
-            _underline = true && widget.onTap != null;
-          });
-        },
-        onExit: (event) {
-          setState(() {
-            _underline = false;
-          });
-        },
-        cursor: widget.onHoverPointer,
+      child: child,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (event) {
+        setState(() {
+          _underline = true && widget.onTap != null;
+        });
+      },
+      onExit: (event) {
+        setState(() {
+          _underline = false;
+        });
+      },
+      cursor: widget.onHoverPointer,
+      child: Container(
         child: LayoutBuilder(builder: (context, boxConstraints) {
           return widget.subItems == null
               ? InkWell(
                   onTap: widget.onTap,
                   onLongPress: widget.onLongPress,
-                  child: Row(
-                    children: [
-                      SizedBox(width: widget.customIconOffsetX ?? 0),
-                      widget.leading,
-                      _title,
-                    ],
+                  child: _titleContainer(
+                    child: Row(
+                      children: [
+                        SizedBox(width: widget.customIconOffsetX ?? 0),
+                        widget.leading,
+                        _title,
+                      ],
+                    ),
                   ),
                 )
-              : CollapsibleMultiLevelItemWidget(
-                  onHoverPointer: widget.onHoverPointer,
-                  onHoverBoxColor: widget.onHoverBoxColor,
-                  textStyle: widget.textStyle,
-                  offsetX: widget.offsetX,
-                  customIconOffsetX: widget.customIconOffsetX,
-                  isSelected: widget.isSelected,
-                  scale: widget.scale,
-                  padding: widget.padding,
-                  minWidth: widget.minWidth,
-                  isCollapsed: widget.isCollapsed,
-                  parentComponent: widget.parentComponent,
-                  onHold: widget.onLongPress,
-                  mainLevel: Row(
-                    children: [
-                      Flexible(child: widget.leading),
-                      _title,
-                    ],
+              : _titleContainer(
+                  child: CollapsibleMultiLevelItemWidget(
+                    onHoverPointer: widget.onHoverPointer,
+                    onHoverBoxColor: widget.onHoverBoxColor,
+                    textStyle: widget.textStyle,
+                    offsetX: widget.offsetX,
+                    customIconOffsetX: widget.customIconOffsetX,
+                    isSelected: widget.isSelected,
+                    scale: widget.scale,
+                    padding: widget.padding,
+                    minWidth: widget.minWidth,
+                    isCollapsed: widget.isCollapsed,
+                    parentComponent: widget.parentComponent,
+                    onHold: widget.onLongPress,
+                    mainLevel: Row(
+                      children: [
+                        Flexible(child: widget.leading),
+                        _title,
+                      ],
+                    ),
+                    onTapMainLevel: widget.onTap,
+                    subItems: widget.subItems!,
+                    extendable: widget.isCollapsed != false ||
+                        widget.isSelected != false,
+                    disable: widget.isCollapsed,
+                    iconColor: widget.iconColor,
+                    iconSize: widget.iconSize,
                   ),
-                  onTapMainLevel: widget.onTap,
-                  subItems: widget.subItems!,
-                  extendable:
-                      widget.isCollapsed != false || widget.isSelected != false,
-                  disable: widget.isCollapsed,
-                  iconColor: widget.iconColor,
-                  iconSize: widget.iconSize,
                 );
         }),
       ),
@@ -130,9 +140,9 @@ class _CollapsibleItemWidgetState extends State<CollapsibleItemWidget> {
               widget.title,
               style: _underline
                   ? widget.textStyle.copyWith(
-                    decoration: TextDecoration.underline,
-                    decorationColor: widget.textStyle.color,
-                  )
+                      decoration: TextDecoration.underline,
+                      decorationColor: widget.textStyle.color,
+                    )
                   : widget.textStyle,
               softWrap: false,
               overflow: TextOverflow.fade,
